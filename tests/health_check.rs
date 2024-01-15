@@ -1,6 +1,6 @@
 use std::net::TcpListener;
 
-#[actix_web::test]
+#[tokio::test]
 async fn health_check_works() {
     let port = spawn_app();
 
