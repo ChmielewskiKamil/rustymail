@@ -20,7 +20,7 @@ async fn health_check() -> impl Responder {
 }
 
 #[post("/subscriptions")]
-async fn subscribe(data: web::Form<FormData>) -> impl Responder {
+async fn subscribe(_data: web::Form<FormData>) -> impl Responder {
     HttpResponse::Ok()
 }
 
