@@ -26,6 +26,7 @@ async fn subscribe_returns_200_when_valid_form_data() {
 
     let response = client
         .post(format!("{}/subscriptions", &port))
+        .header("Content-Type", "application/x-www-form-urlencoded")
         .body(body)
         .send()
         .await
@@ -49,6 +50,7 @@ async fn subscribe_returns_400_when_invalid_form_data() {
     for (invalid_body, error_message) in test_cases {
         let response = client
             .post(format!("{}/subscriptions", &port))
+            .header("Content-Type", "application/x-www-form-urlencoded")
             .body(invalid_body)
             .send()
             .await
