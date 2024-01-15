@@ -1,7 +1,7 @@
 use std::net::TcpListener;
 
 use actix_web::dev::Server;
-use actix_web::{get, App, HttpResponse, HttpServer, Responder};
+use actix_web::{get, post, App, HttpResponse, HttpServer, Responder};
 
 #[get("/")]
 async fn hello() -> impl Responder {
@@ -13,10 +13,20 @@ async fn health_check() -> impl Responder {
     HttpResponse::Ok()
 }
 
+#[post("/subscriptions")]
+async fn subscribe() -> impl Responder {
+    HttpResponse::Ok()
+}
+
 pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
-    let server = HttpServer::new(|| App::new().service(hello).service(health_check))
-        .listen(listener)?
-        .run();
+    let server = HttpServer::new(|| {
+        App::new()
+            .service(hello)
+            .service(health_check)
+            .service(subscribe)
+    })
+    .listen(listener)?
+    .run();
 
     Ok(server)
 }
